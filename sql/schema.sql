@@ -1,6 +1,4 @@
 -- Form-41 / NESCO online application schema
--- Run this in the Supabase SQL editor
-
 create extension if not exists pgcrypto;
 
 create table if not exists public.applications (
@@ -51,31 +49,14 @@ alter table public.application_status_history enable row level security;
 alter table public.notification_log enable row level security;
 
 drop policy if exists "public insert applications" on public.applications;
-create policy "public insert applications"
-  on public.applications for insert
-  to anon, authenticated
-  with check (true);
-
+create policy "public insert applications" on public.applications for insert to anon, authenticated with check (true);
 drop policy if exists "public select own tracking" on public.applications;
-create policy "public select own tracking"
-  on public.applications for select
-  to anon, authenticated
-  using (true);
-
+create policy "public select own tracking" on public.applications for select to anon, authenticated using (true);
+drop policy if exists "public update applications" on public.applications;
+create policy "public update applications" on public.applications for update to anon, authenticated using (true) with check (true);
 drop policy if exists "public insert history" on public.application_status_history;
-create policy "public insert history"
-  on public.application_status_history for insert
-  to anon, authenticated
-  with check (true);
-
+create policy "public insert history" on public.application_status_history for insert to anon, authenticated with check (true);
 drop policy if exists "public select history" on public.application_status_history;
-create policy "public select history"
-  on public.application_status_history for select
-  to anon, authenticated
-  using (true);
-
+create policy "public select history" on public.application_status_history for select to anon, authenticated using (true);
 drop policy if exists "public insert notifications" on public.notification_log;
-create policy "public insert notifications"
-  on public.notification_log for insert
-  to anon, authenticated
-  with check (true);
+create policy "public insert notifications" on public.notification_log for insert to anon, authenticated with check (true);
